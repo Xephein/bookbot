@@ -7,10 +7,15 @@ def main():
     word_num = get_word_count(file_contents)
     print(word_num)
 
-
+def clean_text(string):
+    string = string.replace("\n", " ")
+    words = string.split(" ")
+    while "" in words:
+        words.remove("")
+    return words
 
 def get_word_count(string):
-    words = string.split(" ")
+    words = clean_text(string)
     return len(words)
 
 
