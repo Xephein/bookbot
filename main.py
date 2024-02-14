@@ -1,15 +1,18 @@
 def main():
+    path_to_book = r"books/frankenstein.txt"
+
     # Read Contents
-    with open(r"books/frankenstein.txt") as f:
+    with open(path_to_book) as f:
         file_contents = f.read()
 
     # Get wordcount
     word_num = get_word_count(file_contents)
-    print(word_num)
 
     # Get lettercount
     letters = get_letter_count(file_contents)
-    print(letters)
+    
+    # Print report
+    print_report(word_num, letters, path_to_book)
 
 # Get rid of newline chars, seperate words into list,
 # get rid of unnecessary whitespace,
@@ -41,5 +44,22 @@ def get_letter_count(string):
         else:
             letter_count[char] += 1
     return letter_count
+
+# Function for sorting the list_to_sort array
+def get_dict_element_count(dictionary):
+    return dictionary["count"]
+
+# Create a list of dictionaries, to sort by letter count.
+# Print results in a neat format.
+def print_report(word_count, letter_dict, path):
+    list_to_sort = []
+    for key in letter_dict:
+        list_to_sort.append({"letter": key, "count": letter_dict[key]})
+    list_to_sort.sort(reverse=True, key=get_dict_element_count)
+    print(f"--- Begin report of {path} ---")
+    print(f"{word_count} words found in the document\n")
+    for letter in list_to_sort:
+        print(f"The '{letter['letter']}' character was found {letter['count']} times")
+
 
 main()
