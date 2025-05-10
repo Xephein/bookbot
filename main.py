@@ -1,5 +1,12 @@
+from stats import get_word_count, clean_text
+import sys
+
+if len(sys.argv) != 2:
+    print("Usage: python3 main.py <path_to_book>")
+    sys.exit(1)
+
 def main():
-    path_to_book = r"books/frankenstein.txt"
+    path_to_book = sys.argv[1]
 
     # Read Contents
     with open(path_to_book) as f:
@@ -17,17 +24,7 @@ def main():
 # Get rid of newline chars, seperate words into list,
 # get rid of unnecessary whitespace,
 # return a list of words, and the string without newline chars
-def clean_text(string):
-    string = string.replace("\n", " ")
-    words = string.split(" ")
-    while "" in words:
-        words.remove("")
-    return words, string
 
-# Get length of list of words
-def get_word_count(string):
-    words = clean_text(string)[0]
-    return len(words)
 
 # Get string w/o newline chars, iterate through chars,
 # ignore whitespace, convert letter to lowercase,
@@ -59,7 +56,7 @@ def print_report(word_count, letter_dict, path):
     print(f"--- Begin report of {path} ---")
     print(f"{word_count} words found in the document\n")
     for letter in list_to_sort:
-        print(f"The '{letter['letter']}' character was found {letter['count']} times")
+        print(f"{letter['letter']}: {letter['count']}")
 
 
 main()
